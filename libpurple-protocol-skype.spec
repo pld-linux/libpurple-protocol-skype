@@ -13,6 +13,7 @@ BuildRequires:	glib2-devel
 BuildRequires:	pidgin-devel
 BuildRequires:	sed >= 4.0
 Requires:	skype
+Provides:	libpurple-protocol
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
