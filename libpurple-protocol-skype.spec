@@ -1,16 +1,18 @@
+%define		svnrev	579
+%define		rel		1
 Summary:	Skype API Plugin for Pidgin/libpurple/Adium
 Name:		libpurple-protocol-skype
 Version:	0.1
-Release:	0.2
+Release:	0.%{svnrev}.%{rel}
 License:	GPL v3
 Group:		Applications/Communications
 # svn checkout http://skype4pidgin.googlecode.com/svn/trunk/ skype4pidgin
-# tar --exclude=.svn -cjf skype4pidgin-r$(svnversion skype4pidgin).tar.bz2 skype4pidgin
-Source0:	skype4pidgin-r558.tar.bz2
-# Source0-md5:	bde82b7df7dd5f7afaa90e023dc77668
+# tar --exclude-vcs -cjf skype4pidgin-r$(svnversion skype4pidgin).tar.bz2 skype4pidgin
+Source0:	skype4pidgin-r%{svnrev}.tar.bz2
+# Source0-md5:	f788abfbd52377b719e199f11f8aa26a
 URL:		http://code.google.com/p/skype4pidgin/
 BuildRequires:	glib2-devel
-BuildRequires:	pidgin-devel
+BuildRequires:	libpurple-devel
 BuildRequires:	sed >= 4.0
 Requires:	skype
 Provides:	libpurple-protocol
@@ -24,10 +26,12 @@ keep a consistent user interface and use all the other nifty
 Pidgin/Adium plugins with it, like spell-checking or OTR encryption.
 
 %prep
-%setup -q -n skype4pidgin
+%setup -qc
+mv skype4pidgin/* .
 %{__sed} -i -e 's,\r$,,' README.txt
 %{__sed} -i -e 's,-g -march=athlon-xp -O2 -pipe,$(CFLAGS),' Makefile
-%{__sed} -i -e 's,-g -O2 -pipe,$(CFLAGS),' Makefile
+%{__sed} -i -e 's,-g -pipe,$(CFLAGS),' Makefile
+%{__sed} -i -e 's,-g -march=athlon-xp -pipe,$(CFLAGS),' Makefile
 %{__sed} -i -e 's,gcc,$(CC),' Makefile
 %{__sed} -i -e 's,/usr/lib/purple-2,%{_libdir}/purple-2,' Makefile
 # we want libfoo.so, not libfoo64.so, so pretend we're always building 32bit lib
