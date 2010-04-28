@@ -1,9 +1,9 @@
 %define		svnrev	579
-%define		rel		1
+%define		rel		0.1
 Summary:	Skype API Plugin for Pidgin/libpurple/Adium
 Name:		libpurple-protocol-skype
-Version:	0.1
-Release:	0.%{svnrev}.%{rel}
+Version:	20100121
+Release:	1
 License:	GPL v3
 Group:		Applications/Communications
 # svn checkout http://skype4pidgin.googlecode.com/svn/trunk/ skype4pidgin
@@ -36,6 +36,11 @@ mv skype4pidgin/* .
 %{__sed} -i -e 's,/usr/lib/purple-2,%{_libdir}/purple-2,' Makefile
 # we want libfoo.so, not libfoo64.so, so pretend we're always building 32bit lib
 %{__sed} -i -e 's,${LINUX32_COMPILER},$(CC),' Makefile
+
+version=$(sed -ne 4p CHANGELOG.txt)
+if [ "[$version]" != "[$(date '+%d %B %Y' -d %{version})]" ]; then
+	exit 1
+fi
 
 %build
 %{__make} \
