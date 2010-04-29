@@ -1,5 +1,11 @@
+# NOTE:
+# - the plugin's feature to check plugin freshness compares mtime of shared libs provided on project homepage:
+#   static void skype_plugin_update_check(void)
+#        basename = g_path_get_basename(this_plugin->path);
+#        purple_util_fetch_url(g_strconcat("http://eion.robbmob.com/version?version=", basename, NULL),
+#   which could be largely bogus depending when we build our package, touch
+#   *.so after build with reference of source files? source tarball?
 %define		svnrev	579
-%define		rel		0.1
 Summary:	Skype API Plugin for Pidgin/libpurple/Adium
 Name:		libpurple-protocol-skype
 Version:	20100121
