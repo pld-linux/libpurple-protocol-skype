@@ -17,8 +17,10 @@ Group:		Applications/Communications
 Source0:	skype4pidgin-r%{svnrev}.tar.bz2
 # Source0-md5:	f788abfbd52377b719e199f11f8aa26a
 URL:		http://code.google.com/p/skype4pidgin/
-BuildRequires:	glib2-devel
+BuildRequires:	gettext-devel
+BuildRequires:	glib-devel
 BuildRequires:	libpurple-devel
+BuildRequires:	pkgconfig
 BuildRequires:	sed >= 4.0
 Requires:	skype
 Provides:	libpurple-protocol
