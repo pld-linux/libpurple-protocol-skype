@@ -5,24 +5,24 @@
 #        purple_util_fetch_url(g_strconcat("http://eion.robbmob.com/version?version=", basename, NULL),
 #   which could be largely bogus depending when we build our package, touch
 #   *.so after build with reference of source files? source tarball?
-%define		svnrev	579
+%define		svnrev	601
 Summary:	Skype API Plugin for Pidgin/libpurple/Adium
 Name:		libpurple-protocol-skype
-Version:	20100121
+Version:	20100826
 Release:	1
 License:	GPL v3
 Group:		Applications/Communications
 # svn checkout http://skype4pidgin.googlecode.com/svn/trunk/ skype4pidgin
 # tar --exclude-vcs -cjf skype4pidgin-r$(svnversion skype4pidgin).tar.bz2 skype4pidgin
 Source0:	skype4pidgin-r%{svnrev}.tar.bz2
-# Source0-md5:	f788abfbd52377b719e199f11f8aa26a
+# Source0-md5:	0f8fcf86632659a6f5ba41a45cd18e36
 URL:		http://code.google.com/p/skype4pidgin/
 BuildRequires:	gettext-devel
 BuildRequires:	glib-devel
 BuildRequires:	libpurple-devel
 BuildRequires:	pkgconfig
 BuildRequires:	sed >= 4.0
-Requires:	skype
+Requires:	skype-program
 Provides:	libpurple-protocol
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -45,8 +45,9 @@ mv skype4pidgin/* .
 # we want libfoo.so, not libfoo64.so, so pretend we're always building 32bit lib
 %{__sed} -i -e 's,${LINUX32_COMPILER},$(CC),' Makefile
 
-version=$(sed -ne 4p CHANGELOG.txt)
-if [ "[$version]" != "[$(date '+%d %B %Y' -d %{version})]" ]; then
+# yes it is weird place to find version date, because he this time forgot to update changelog
+version=$(awk -F'"' '/define PRODUCT_VERSION/{print $2}' skype4pidgin.nsi)
+if [ "[$version]" != "[$(date '+%d-%b-%Y' -d %{version})]" ]; then
 	exit 1
 fi
 
@@ -75,9 +76,5 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/purple-2/libskype_dbus.so
 %dir %{_pixmapsdir}/pidgin/emotes/skype
 %{_pixmapsdir}/pidgin/emotes/skype/theme
-%{_pixmapsdir}/pidgin/protocols/16/skype.png
-%{_pixmapsdir}/pidgin/protocols/16/skypeout.png
-%{_pixmapsdir}/pidgin/protocols/22/skype.png
-%{_pixmapsdir}/pidgin/protocols/22/skypeout.png
-%{_pixmapsdir}/pidgin/protocols/48/skype.png
-%{_pixmapsdir}/pidgin/protocols/48/skypeout.png
+%{_pixmapsdir}/pidgin/protocols/*/skype.png
+%{_pixmapsdir}/pidgin/protocols/*/skypeout.png
