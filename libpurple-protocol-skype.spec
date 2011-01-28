@@ -22,6 +22,7 @@ BuildRequires:	glib-devel
 BuildRequires:	libpurple-devel
 BuildRequires:	pkgconfig
 BuildRequires:	sed >= 4.0
+BuildRequires:	xorg-lib-libX11-devel
 Requires:	skype-program
 Provides:	libpurple-protocol
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
