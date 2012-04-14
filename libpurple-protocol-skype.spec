@@ -5,18 +5,16 @@
 #        purple_util_fetch_url(g_strconcat("http://eion.robbmob.com/version?version=", basename, NULL),
 #   which could be largely bogus depending when we build our package, touch
 #   *.so after build with reference of source files? source tarball?
-%define		svnrev	612
+%define		svnrev	628
 Summary:	Skype API Plugin for Pidgin/libpurple/Adium
 Name:		libpurple-protocol-skype
-Version:	20110407
+Version:	20120215
 Release:	1
 License:	GPL v3
 Group:		Applications/Communications
-# svn checkout http://skype4pidgin.googlecode.com/svn/trunk/ skype4pidgin
-# tar --exclude-vcs -cjf skype4pidgin-r$(svnversion skype4pidgin).tar.bz2 skype4pidgin
-# ../dropin skype4pidgin-r$(svnversion skype4pidgin).tar.bz2
 Source0:	skype4pidgin-r%{svnrev}.tar.bz2
-# Source0-md5:	4bee5fc13f79972c55082549ea40b8bc
+# Source0-md5:	0196b4674d07b53c36fda78c3e9be685
+Source1:	get-source.sh
 URL:		http://code.google.com/p/skype4pidgin/
 BuildRequires:	gettext-devel
 BuildRequires:	glib-devel
@@ -36,8 +34,7 @@ keep a consistent user interface and use all the other nifty
 Pidgin/Adium plugins with it, like spell-checking or OTR encryption.
 
 %prep
-%setup -qc
-mv skype4pidgin/* .
+%setup -qn skype4pidgin-r%{svnrev}
 %{__sed} -i -e 's,\r$,,' README.txt
 %{__sed} -i -e 's,-g -march=athlon-xp -O2 -pipe,$(CFLAGS),' Makefile
 %{__sed} -i -e 's,-g -pipe,$(CFLAGS),' Makefile
