@@ -5,15 +5,15 @@
 #        purple_util_fetch_url(g_strconcat("http://eion.robbmob.com/version?version=", basename, NULL),
 #   which could be largely bogus depending when we build our package, touch
 #   *.so after build with reference of source files? source tarball?
-%define		svnrev	628
+%define		svnrev	646
 Summary:	Skype API Plugin for Pidgin/libpurple/Adium
 Name:		libpurple-protocol-skype
-Version:	20120215
+Version:	20121120
 Release:	1
 License:	GPL v3
 Group:		Applications/Communications
 Source0:	skype4pidgin-r%{svnrev}.tar.bz2
-# Source0-md5:	0196b4674d07b53c36fda78c3e9be685
+# Source0-md5:	fd47f628afd709ac6cc1bb651b630ed6
 Source1:	get-source.sh
 URL:		http://code.google.com/p/skype4pidgin/
 BuildRequires:	gettext-devel
@@ -56,9 +56,6 @@ fi
 	libskype_dbus.so all \
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags}"
-	LIBPURPLE_CFLAGS="$(pkg-config --cflags purple)" \
-	GLIB_CFLAGS="$(pkg-config --cflags glib)" \
-	DBUS_CFLAGS="$(pkg-config --cflags dbus-glib-1)" \
 
 %install
 rm -rf $RPM_BUILD_ROOT
