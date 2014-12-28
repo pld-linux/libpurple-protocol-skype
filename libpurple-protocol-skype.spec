@@ -16,7 +16,7 @@ Source0:	skype4pidgin-r%{svnrev}.tar.bz2
 # Source0-md5:	fd47f628afd709ac6cc1bb651b630ed6
 Source1:	get-source.sh
 URL:		http://code.google.com/p/skype4pidgin/
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	glib-devel
 BuildRequires:	libpurple-devel
 BuildRequires:	pkgconfig
